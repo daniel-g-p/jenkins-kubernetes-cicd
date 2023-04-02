@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo "2. Deploy Docker Image to DockerHub"
                 script {
-                    docker.withRegistry("", "${env.DOCKERHUB_CREDENTIALS}") {
+                    docker.withRegistry("", "DockerHub") {
                         docker.image("${env.DOCKER_IMAGE}").push()
                     }
                 }
