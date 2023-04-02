@@ -4,7 +4,7 @@ pipeline {
         DOCKER_IMAGE_NAME = "jenkins-kubernetes-cicd"
         DOCKER_IMAGE_TAG = "${env.BUILD_ID}"
         DOCKER_IMAGE = "${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"
-        DOCKERHUB_CREDENTIALS = credentials("DockerHub").
+        DOCKERHUB_CREDENTIALS = credentials("DockerHub")
     }
     stages {
         stage("1. Build Docker Image on Local Machine") {
