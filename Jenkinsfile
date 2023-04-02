@@ -15,8 +15,10 @@ pipeline {
         stage("2. Deploy Docker Image to DockerHub") {
             steps {
                 echo "2. Deploy Docker Image to DockerHub"
-                docker.withRegistry("https://hub.docker.com", "DockerHub") {
-                    docker.image("${DOCKER_IMAGE}").push()
+                script {
+                    docker.withRegistry("https://hub.docker.com", "DockerHub") {
+                        docker.image("${DOCKER_IMAGE}").push()
+                    }
                 }
             }
         }
