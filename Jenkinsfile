@@ -1,9 +1,10 @@
 pipeline {
     agent any
     environment {
+        DOCKERHUB_CREDENTIALS = credentials("DockerHub")
         DOCKER_IMAGE_NAME = "jenkins-kubernetes-cicd"
         DOCKER_IMAGE_TAG = "latest"
-        DOCKER_IMAGE = "${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"
+        DOCKER_IMAGE = "${DOCKERHUB_CREDENTIALS_USR}/${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"
     }
     stages {
         stage("1. Build Docker Image on Local Machine") {
@@ -15,11 +16,8 @@ pipeline {
         stage("2. Deploy Docker Image to DockerHub") {
             steps {
                 echo "2. Deploy Docker Image to DockerHub"
-                script {
-                    docker.withRegistry("https://hub.docker.com", "DockerHub") {
-                        docker.image("${DOCKER_IMAGE}").push()
-                    }
-                }
+                sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --passwords-stdin"
+                sh "docker push ${DOCKER_IMAGE}"
             }
         }
         stage("3. Delete Docker Image on Local Machine") {
