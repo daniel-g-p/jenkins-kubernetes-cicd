@@ -16,8 +16,11 @@ pipeline {
         stage("2. Deploy Docker Image to DockerHub") {
             steps {
                 echo "2. Deploy Docker Image to DockerHub"
-                sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
-                sh "docker push ${DOCKER_IMAGE}"
+                script {
+                    docker.withRegistry("", "${env.DOCKERHUB_CREDENTIALS}") {
+                        docker.image("${env.DOCKER_IMAGE}").push()
+                    }
+                }
             }
         }
         stage("3. Delete Docker Image on Local Machine") {
