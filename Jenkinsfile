@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_IMAGE_NAME = "jenkins-kubernetes-cicd"
-        DOCKER_IMAGE_TAG = "${env.BUILD_ID}"
+        DOCKER_IMAGE_TAG = "latest"
         DOCKER_IMAGE = "${env.DOCKER_IMAGE_NAME}:${env.DOCKER_IMAGE_TAG}"
         DOCKERHUB_CREDENTIALS = credentials("DockerHub")
     }
