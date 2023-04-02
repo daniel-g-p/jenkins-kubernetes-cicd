@@ -16,7 +16,7 @@ pipeline {
         stage("2. Deploy Docker Image to DockerHub") {
             steps {
                 echo "2. Deploy Docker Image to DockerHub"
-                sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --passwords-stdin"
+                sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u ${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
                 sh "docker push ${DOCKER_IMAGE}"
             }
         }
