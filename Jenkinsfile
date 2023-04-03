@@ -33,7 +33,7 @@ pipeline {
         //     agent { label "kOps" }
         //     steps {
         //         echo "4. Deploy Docker Image to Kubernetes Cluster"
-        //         sh "docker "
+        //         sh "helm upgrade --install --force "
         //     }
         // }
     }
