@@ -3,7 +3,8 @@ import { config } from "dotenv";
 config();
 
 export default {
-  port: process.env.PORT,
-  databaseUrl: process.env.DB_URL,
-  databaseName: process.env.DB_NAME,
+  nodeEnv: process.env.NODE_ENV || "production",
+  port: process.env.NODE_PORT || 3000,
+  username: process.env.USERNAME || "",
+  password: process.env.PASSWORD || "",
 };

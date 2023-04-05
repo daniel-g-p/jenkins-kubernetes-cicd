@@ -1,32 +1,26 @@
-import mongodb from "../utilities/mongodb.js";
+import env from "../utilities/env.js";
 
 const getHealthCheck = (req, res) => {
   return res.status(200).send(Date.now().toString());
 };
 
 const getLogin = (req, res) => {
-  return res.render("index", { message: "" });
+  return res.render("index", { message: "You are logged out" });
 };
 
 const postLogin = async (req, res) => {
   const { username, password } = req.body;
-  const database = mongodb.use();
-  const isValid = database
-    ? await database
-        .collection("users")
-        .findOne({ username }, { projection: { password: 1 } })
-        .then((result) => {
-          return result && result.password === password ? true : false;
-        })
-        .catch((error) => {
-          console.error(error);
-          return false;
-        })
-    : false;
+  const isValid =
+    env.username &&
+    env.password &&
+    env.username === username &&
+    env.password === password
+      ? true
+      : false;
   if (isValid) {
-    return res.render("index", { message: "Login succeeded" });
+    return res.render("index", { message: "You are logged in" });
   } else {
-    return res.render("index", { message: "Login failed" });
+    return res.render("index", { message: "You are logged out" });
   }
 };
 
