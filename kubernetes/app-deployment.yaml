@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Deployment
+meta:
+  name: app-deployment
+  labels:
+    project: jenkins-kubernetes-cicd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: jenkins-kubernetes-cicd
+  template:
+    metadata:
+      labels:
+        project: jenkins-kubernetes-cicd
+    spec:
+      containers:
+        - name: app-container
+          image: {{ .Values.app-container-image }}
+          ports:
+            - name: app-container-port
+              containerPort: {{ .Values.app-container-port }}
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PORT
+              value: {{ .Values.app-container-port }}
+            - name: USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: app-username
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: app-password

@@ -13,7 +13,7 @@ pipeline {
                 sh "docker build -t ${env.DOCKER_IMAGE} ."
             }
         }
-        stage("2. Deploy Docker Image to DockerHub") {
+        stage("2. Push Docker Image to DockerHub") {
             steps {
                 echo "2. Deploy Docker Image to DockerHub"
                 script {
@@ -29,12 +29,12 @@ pipeline {
                 sh "docker rmi ${env.DOCKER_IMAGE}"
             }
         }
-        // stage("4. Deploy Docker Image to Kubernetes Cluster") {
-        //     agent { label "kOps" }
-        //     steps {
-        //         echo "4. Deploy Docker Image to Kubernetes Cluster"
-        //         sh "helm upgrade --install --force "
-        //     }
-        // }
+        stage("4. Deploy Docker Image to Kubernetes Cluster") {
+            agent { label "kOps" }
+            steps {
+                echo "4. Deploy Docker Image to Kubernetes Cluster"
+                sh "kubectl apply -f kubernetes/."
+            }
+        }
     }
 }
