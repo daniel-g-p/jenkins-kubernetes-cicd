@@ -1,7 +1,7 @@
 ---
 apiVersion: apps/v1
 kind: Deployment
-meta:
+metadata:
   name: deployment
   labels:
     project: jenkins-kubernetes-cicd
