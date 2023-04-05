@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 meta:
-  name: app-deployment
+  name: deployment
   labels:
     project: jenkins-kubernetes-cicd
 spec:
@@ -16,10 +16,10 @@ spec:
         project: jenkins-kubernetes-cicd
     spec:
       containers:
-        - name: app-container
+        - name: container
           image: danielgiustiniperez/jenkins-kubernetes-cicd:latest
           ports:
-            - name: app-container-port
+            - name: container-port
               containerPort: 3000
           env:
             - name: NODE_ENV
@@ -29,10 +29,10 @@ spec:
             - name: USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: app-secret
-                  key: app-username
+                  name: secret
+                  key: username
             - name: PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: app-secret
-                  key: app-password
+                  name: secret
+                  key: password
