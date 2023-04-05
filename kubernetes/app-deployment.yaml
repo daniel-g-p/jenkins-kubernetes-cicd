@@ -25,7 +25,7 @@ spec:
             - name: NODE_ENV
               value: production
             - name: PORT
-              value: 3000
+              value: '3000'
             - name: USERNAME
               valueFrom:
                 secretKeyRef:
