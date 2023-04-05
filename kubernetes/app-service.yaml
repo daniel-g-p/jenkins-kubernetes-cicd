@@ -9,7 +9,7 @@ spec:
   selector:
     project: jenkins-kubernetes-cicd
   ports:
-    - name: app-service-port_http
+    - name: app-service-port
       protocol: TCP
       port: 80
       targetPort: app-container-port

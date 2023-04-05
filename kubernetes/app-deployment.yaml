@@ -17,15 +17,15 @@ spec:
     spec:
       containers:
         - name: app-container
-          image: {{ .Values.app-container-image }}
+          image: danielgiustiniperez/jenkins-kubernetes-cicd:latest
           ports:
             - name: app-container-port
-              containerPort: {{ .Values.app-container-port }}
+              containerPort: 3000
           env:
             - name: NODE_ENV
               value: production
             - name: PORT
-              value: {{ .Values.app-container-port }}
+              value: 3000
             - name: USERNAME
               valueFrom:
                 secretKeyRef:
